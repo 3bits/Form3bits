@@ -1,0 +1,52 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="pt-BR"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="pt-BR"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="pt-BR"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pt-BR"> <!--<![endif]-->
+<head>
+    <title>Form 3bits</title>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="Form3bits.js"></script>
+</head>
+<body>
+
+<form id="form" name="form_one" method="post" action="result.json">
+    <p><input name="first_field" type="text" required="required" placeholder="This is a required field"></p>
+    <p><input name="second_field" type="text" placeholder="This is NOT a required field"></p>
+    <p><input type="submit" value="Send"></p>
+</form>
+
+<button>Click here to activate the form above</button>
+
+<p>Custom sucess action:</p>
+
+<form id="form2" name="form_two" action="result.json">
+    <p><input name="second_field" type="text" placeholder="Your data"></p>
+    <p><input type="submit" value="Send"></p>
+</form>
+
+<script type="text/javascript">
+
+var form = $('#form')
+  , form2 = $('#form2');
+
+form.form3bits().form3bits('desactivate');
+$('button').on('click', function(e){
+    form.form3bits('activate');
+})
+
+
+form2.form3bits({
+    onSuccess: function (data, textStatus, jqXHR) {
+        this.activate().clear().changeButton()
+
+        var p = $('<p>Your data has been successfully saved</p>');
+        form2.before(p);
+        p.hide().slideDown();
+    }
+});
+
+</script>
+</body>
+</html>
