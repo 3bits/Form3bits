@@ -1,7 +1,14 @@
 !function ($) {
 
 	/**
-	 *	Class
+	 * A Simple way to send Form data via Ajax 
+	 * @example
+	 * $('#form').form3bits();
+	 * $('#form').form3bits('desactivate');
+	 * $('#form2').form3bits({
+	 *   onSuccess: function (data, textStatus, jqXHR) { alert('ok'); }
+	 * });
+	 * @class Form3bits
 	 */
 	var Form3bits = function(element, options) {
 		this.$element = $(element)
@@ -11,6 +18,11 @@
     	this.options = $.extend({}, $.fn.form3bits.defaults, options)
 	}
 
+	/**
+	 * Form Submit Event Handler
+	 * @param e jQuery Submit Event
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.submit = function(e) {
 		e.preventDefault()
 
@@ -21,6 +33,10 @@
 		return this
 	}
 
+	/**
+	 * Send form data
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.send = function() {
 		if ($.isFunction(this.options.onSend))
 			return this.options.onSend.apply(this);
@@ -39,6 +55,9 @@
 		return this
 	}
 
+	/**
+	 * If is empty, this function is called
+	 */
 	Form3bits.prototype.onEmpty = function() {
 		if ($.isFunction(this.options.onEmpty))
 			return this.options.onEmpty.apply(this);
@@ -46,6 +65,12 @@
 		alert(this.options.text.empty)
 	}
 
+	/**
+	 * If is successed, this function is called
+	 * @param data 
+	 * @param textStatus 
+	 * @param jqXHR 
+	 */
 	Form3bits.prototype.onSuccess = function(data, textStatus, jqXHR) {
 		if ($.isFunction(this.options.onSuccess))
 			return this.options.onSuccess.apply(this, [data, textStatus, jqXHR]);
@@ -54,6 +79,12 @@
 		alert(this.options.text.success)
 	}
 
+	/**
+	 * If it has an error, this function is called
+	 * @param jqXHR 
+	 * @param textStatus 
+	 * @param errorThrown 
+	 */
 	Form3bits.prototype.onError = function(jqXHR, textStatus, errorThrown) {
 		if ($.isFunction(this.options.onError))
 			return this.options.onError.apply(this, [jqXHR, textStatus, errorThrown]);
@@ -62,6 +93,10 @@
 		alert(this.options.text.error)
 	}
 
+	/**
+	 * Check if all required fields are empty
+	 * @returns {Boolean} Is empty?
+	 */
 	Form3bits.prototype.isEmpty = function() {
 		if (!this.$elements.length)
 			return true
@@ -75,6 +110,10 @@
 		return empty
 	}
 
+	/**
+	 * Return all form fields values
+	 * @returns {Array} The Form data
+	 */
 	Form3bits.prototype.values = function() {
 		var data = {}
 		this.$elements.each(function(i, el){
@@ -84,11 +123,20 @@
 		return data
 	}
 
+	/**
+	 * Clear a form
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.clear = function() {
 		this.$elements.val('')
 		return this
 	}
 
+	/**
+	 * Active or desactivate a form
+	 * @param active Is to activate?
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.setState = function(active) {
 		active = active == undefined || !!active;
 		if ($.isFunction(this.options.onSetState))
@@ -99,6 +147,11 @@
 		return this
 	}
 
+	/**
+	 * Change button state
+	 * @param active Is to activate?
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.changeButton = function(active) {
 		if ($.isFunction(this.options.onChangeButton))
 			return this.options.onChangeButton.apply(this, [active]);
@@ -118,14 +171,25 @@
 		return this
 	}
 
+	/**
+	 * Activate form
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.activate = function() {
 		return this.setState(true)
 	}
 
+	/**
+	 * Desactivate form
+	 * @returns {Object} The Form3bits Instance
+	 */
 	Form3bits.prototype.desactivate = function() {
 		return this.setState(false)
 	}
 
+	/**
+	 * Destroy the reference of Form3bits
+	 */
 	Form3bits.prototype.destroy = function() {
 		if ($.isFunction(this.options.onDestroy))
 			return this.options.onDestroy.apply(this);
