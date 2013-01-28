@@ -128,7 +128,7 @@
 	 * @returns {Object} The Form3bits Instance
 	 */
 	Form3bits.prototype.clear = function() {
-		this.$elements.val('')
+		this.$elements.val('').find('option:selected').removeAttr('selected')
 		return this
 	}
 
