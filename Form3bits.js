@@ -12,7 +12,7 @@
 	 */
 	var Form3bits = function(element, options) {
 		this.$element = $(element)
-		this.$elements = $('input[type!="submit"], textarea', this.$element)
+		this.$elements = $('input[type!="submit"], textarea, select', this.$element)
 		this.$button = $('[type="submit"]', this.$element)
 		this.$element.on('submit', $.proxy(this.submit, this))
     	this.options = $.extend({}, $.fn.form3bits.defaults, options)
