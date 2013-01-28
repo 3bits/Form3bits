@@ -118,7 +118,10 @@
 		var data = {}
 		this.$elements.each(function(i, el){
 			var $el = $(el)
-			data[ $el.attr('name') ] = $el.val()
+			if ($el.is(':checkbox'))
+				data[ $el.attr('name') ] = $el.is(':checked') ? $el.val() : null;
+			else
+				data[ $el.attr('name') ] = $el.val()
 		})
 		return data
 	}
@@ -128,7 +131,11 @@
 	 * @returns {Object} The Form3bits Instance
 	 */
 	Form3bits.prototype.clear = function() {
-		this.$elements.val('').find('option:selected').removeAttr('selected')
+		this.$elements
+			.val('')
+			.find('option:selected').removeAttr('selected')
+			.end()
+			.filter(':checked').removeAttr('checked')
 		return this
 	}
 
