@@ -131,6 +131,7 @@
 	 * @returns {Object} The Form3bits Instance
 	 */
 	Form3bits.prototype.clear = function() {
+		this.$elements.filter('textarea').val('')
 		this.$elements.filter('input[type!=checkbox]').filter('input[type!=radio]').val('')
 		this.$elements.find('option:selected').removeAttr('selected')
 		this.$elements.filter(':checked').removeAttr('checked')
