@@ -131,11 +131,9 @@
 	 * @returns {Object} The Form3bits Instance
 	 */
 	Form3bits.prototype.clear = function() {
-		this.$elements
-			.val('')
-			.find('option:selected').removeAttr('selected')
-			.end()
-			.filter(':checked').removeAttr('checked')
+		this.$elements.filter('input[type!=checkbox]').filter('input[type!=radio]').val('')
+		this.$elements.find('option:selected').removeAttr('selected')
+		this.$elements.filter(':checked').removeAttr('checked')
 		return this
 	}
 
